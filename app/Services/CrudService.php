@@ -16,7 +16,8 @@ class CrudService extends CommandHelper
         Self::makeModel($name, $console);
         Self::makeMigration($name, $console);
         Self::makeController($name, $console);
-        Self::makeView($name, $console);
+        Self::makeViews($name, $console);
+        Self::makeSeeder($name, $console);
 
         RepositoryPatternService::repoPattern($name,true);
         $console->info('Repo pattern created for model: '.$name);
@@ -28,42 +29,37 @@ class CrudService extends CommandHelper
     {
         $file = app_path("Models/Admin/".$name.".php");
         file_put_contents($file, Self::generateContent('Model',$name));
-        $console->info('Model Created Successfully: '.$name);
+        $console->info('Model Created Successfully');
     }
 
     protected static function makeMigration($name, $console)
     {
         Artisan::call('make:migration create_'.strtolower(Str::plural($name)).'_table --create='.strtolower(Str::plural($name)));
-        $console->info('Migration Created Successfully: create_'.strtolower(Str::plural($name)).'_table --create='.strtolower(Str::plural($name)));
+        $console->info('Migration Created Successfully');
     }
 
     protected static function makeController($name, $console)
     {
         $file = app_path("Http/Controllers/Admin/".$name."Controller.php");
         file_put_contents($file, Self::generateContent('Controller',$name));
-        $console->info('Controller Created Successfully: '.$name.'Controller');
+        $console->info('Controller Created Successfully');
     }
 
-    protected static function makeView($name, $console)
+    protected static function makeViews($name, $console)
     {
-        $file = resource_path("views/admin/".strtolower($name)."/index.blade.php");
-        file_put_contents($file, Self::generateContent('IndexPage',$name));
-
-        $file = resource_path("views/admin/".strtolower($name)."/create.blade.php");
-        file_put_contents($file, Self::generateContent('CreatePage',$name));
-
-        $file = resource_path("views/admin/".strtolower($name)."/edit.blade.php");
-        file_put_contents($file, Self::generateContent('EditPage',$name));
-
-        $file = resource_path("views/admin/".strtolower($name)."/show.blade.php");
-        file_put_contents($file, Self::generateContent('ShowPage',$name));
-
-        $console->info('Index Page Created Successfully');
-        $console->info('Create Page Created Successfully');
-        $console->info('Show Page Created Successfully');
-        $console->info('Edit Page Created Successfully');
+        $views = ['index', 'create', 'edit', 'show'];
+        foreach ($views as $view) {
+            $file = resource_path("views/admin/".strtolower($name)."/{$view}.blade.php");
+            file_put_contents($file, self::generateContent(ucfirst($view).'Page', $name));
+            $console->info(ucfirst($view).' Page Created Successfully');
+        }
+    }
 
 
+    protected static function makeSeeder($name, $console)
+    {
+        Artisan::call('make:seeder '.$name.'Seeder');
+        $console->info('Seeder file Created Successfully');
     }
 
 }
