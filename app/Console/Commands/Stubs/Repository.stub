@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Admin\modelName;
-use Illuminate\Support\Facades\Cache;
 use App\Contracts\modelNameRepositoryInterface;
 use App\Http\Requests\modelNameRequest;
 
@@ -12,11 +11,7 @@ class modelNameRepository implements modelNameRepositoryInterface
     // modelName Index
     public function indexmodelName()
     {
-        $pluralModelName = config('adminetic.caching', true)
-            ? (Cache::has('pluralModelName') ? Cache::get('pluralModelName') : Cache::rememberForever('pluralModelName', function () {
-                return modelName::latest()->get();
-            }))
-            : modelName::latest()->get();
+        $pluralModelName = modelName::all();
         return compact('pluralModelName');
     }
 
