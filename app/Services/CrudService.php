@@ -18,10 +18,10 @@ class CrudService extends CommandHelper
         Self::makeController($name, $console);
         Self::makeViews($name, $console);
         Self::makeSeeder($name, $console);
+        Self::addFileContent($name, $console);
 
         RepositoryPatternService::repoPattern($name,true);
         $console->info('Repo pattern created for model: '.$name);
-
 
     }
 
@@ -62,4 +62,9 @@ class CrudService extends CommandHelper
         $console->info('Seeder file Created Successfully');
     }
 
+    protected static function addFileContent($name, $console)
+    {
+        // $lowercased_name = strtolower($name);
+        // $route = "Route::resource('admin/{$lowercased_name}',\App\Http\Controllers\Admin\\{$name}Controller::class);";
+    }
 }
