@@ -18,6 +18,7 @@ class CrudService extends CommandHelper
         Self::makeController($name, $console);
         Self::makeViews($name, $console);
         Self::makeSeeder($name, $console);
+        Self::makeBladeLayouts($name, $console);
         Self::addFileContent($name, $console);
 
         RepositoryPatternService::repoPattern($name,true);
@@ -60,6 +61,16 @@ class CrudService extends CommandHelper
     {
         Artisan::call('make:seeder '.$name.'Seeder');
         $console->info('Seeder file Created Successfully');
+    }
+
+    protected static function makeBladeLayouts($name,$console)
+    {
+        Self::createFolderIfNotExists(resource_path("views/admin/layouts/modules/".strtolower($name)));
+        file_put_contents(resource_path("views/admin/layouts/modules/".strtolower($name)."/form.blade.php"), '');
+        $console->info('Edit add file created successfully');
+
+        file_put_contents(resource_path("views/admin/layouts/modules/".strtolower($name)."/scripts.blade.php"), '');
+        $console->info('Script file created successfully');
     }
 
     protected static function addFileContent($name, $console)
