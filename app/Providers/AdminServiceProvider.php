@@ -31,7 +31,7 @@ class AdminServiceProvider extends ServiceProvider
 
     protected function repos()
     {
-
+        $this->app->bind(\App\Contracts\RoleRepositoryInterface::class, \App\Repositories\RoleRepository::class);
 
     }
 }

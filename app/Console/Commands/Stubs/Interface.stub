@@ -19,5 +19,5 @@ interface modelNameRepositoryInterface
 
     public function updatemodelName(modelNameRequest $request, modelName $lowercaseModelName);
 
-    public function deletemodelName(modelName $lowercaseModelName);
+    public function destroymodelName(modelName $lowercaseModelName);
 }
