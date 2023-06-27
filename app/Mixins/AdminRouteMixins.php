@@ -3,6 +3,7 @@
 namespace App\Mixins;
 
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 class AdminRouteMixins
@@ -15,6 +16,8 @@ class AdminRouteMixins
             Route::view('/dashboard', 'admin.dashboard.index')->middleware(['auth', 'verified'])->name('dashboard');
             Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
                 Route::resource('roles',RoleController::class);
+                Route::resource('users',UserController::class);
+
             });
         };
     }
