@@ -72,7 +72,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $this->roleRepositoryInterface->deleteRole($role);
+        $this->roleRepositoryInterface->destroyRole($role);
         return redirect(adminRedirectRoute('roles'))->with('error','Deleted Successfully');
     }
 }

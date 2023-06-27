@@ -1,6 +1,8 @@
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{asset('lara-admin/assets/images/favicon.ico')}}">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
 <!-- Daterangepicker css -->
 <link rel="stylesheet" href="{{asset('lara-admin/assets/vendor/daterangepicker/daterangepicker.css')}}">
 
@@ -15,3 +17,5 @@
 
 <!-- Icons css -->
 <link href="{{asset('lara-admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+
+@livewireStyles

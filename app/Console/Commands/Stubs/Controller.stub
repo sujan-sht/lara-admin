@@ -72,7 +72,7 @@ class modelNameController extends Controller
      */
     public function destroy(modelName $lowercaseModelName)
     {
-        $this->lowercaseModelNameRepositoryInterface->deletemodelName($lowercaseModelName);
+        $this->lowercaseModelNameRepositoryInterface->destroymodelName($lowercaseModelName);
         return redirect(adminRedirectRoute('pluralModelName'))->with('error','Deleted Successfully');
     }
 }

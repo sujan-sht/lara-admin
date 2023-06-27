@@ -3,7 +3,7 @@
 if(! function_exists('adminBaseUrl')){
     function adminBaseUrl($route)
     {
-        return url($route);
+        return url('admin/'.$route);
     }
 }
 

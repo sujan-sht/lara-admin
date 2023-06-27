@@ -1,15 +1,14 @@
 <div>
-    <div class="action-button">
-        @if ($show)
-        <a href="{{adminShowRoute($route,$model->id)}}" class="btn btn-warning btn-icon-xxs"><i class="fas fa-eye"></i></a>
-        @endif
+    @if ($show)
+    <a href="{{adminShowRoute($route,$model->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></i></a>
+    @endif
 
-        <a href="{{adminEditRoute($route,$model->id)}}" class="btn btn-primary btn-icon-xxs"><i class="fas fa-pencil-alt"></i></a>
+    <a href="{{adminEditRoute($route,$model->id)}}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
 
-        <button class="btn btn-danger btn-icon-xxs" type="button" data-bs-toggle="modal"
-        data-original-title="Delete" data-bs-target="#delete-{{ $model->id }}"><i class="fas fa-trash-alt"></i></button>
+    <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal"
+    data-original-title="Delete" data-bs-target="#delete-{{ $model->id }}"><i class="fas fa-trash"></i></button>
 
-    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="delete-{{ $model->id }}" tabindex="-1" role="dialog"
         aria-labelledby="delete-{{ $model->id }}" aria-hidden="true">
