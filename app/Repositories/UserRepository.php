@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Contracts\UserRepositoryInterface;
 use App\Http\Requests\UserRequest;
+use App\Models\Admin\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -18,13 +20,22 @@ class UserRepository implements UserRepositoryInterface
     // User Create
     public function createUser()
     {
-        //
+        $roles = Role::all();
+        return compact('roles');
     }
 
     // User Store
     public function storeUser(UserRequest $request)
     {
-        User::create($request->validated());
+        $request->validated();
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->roles()->attach($request->role);
+
     }
 
     // User Show
@@ -36,18 +47,35 @@ class UserRepository implements UserRepositoryInterface
     // User Edit
     public function editUser(User $user)
     {
-        return compact('user');
+        $roles = Role::all();
+        return compact('user','roles');
     }
 
     // User Update
     public function updateUser(UserRequest $request, User $user)
     {
-        $user->update($request->validated());
+        if($request->password){
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        }else{
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $user->password,
+            ]);
+        }
+
+        $user->roles()->sync($request->role);
     }
 
     // User Destroy
     public function destroyUser(User $user)
     {
-        $user->delete();
+        if($user->delete()){
+            $user->roles()->detach();
+        }
     }
 }

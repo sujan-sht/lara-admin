@@ -1,6 +1,10 @@
  <!-- Vendor js -->
  <script src="{{asset('lara-admin/assets/js/vendor.min.js')}}"></script>
 
+ <!--  Select2 Plugin Js -->
+ <script src="{{asset('lara-admin/assets/vendor/select2/js/select2.min.js')}}"></script>
+
+
  <!-- Daterangepicker js -->
  {{-- <script src="{{asset('lara-admin/assets/vendor/daterangepicker/moment.min.js')}}"></script> --}}
  {{-- <script src="{{asset('lara-admin/assets/vendor/daterangepicker/daterangepicker.js')}}"></script> --}}
