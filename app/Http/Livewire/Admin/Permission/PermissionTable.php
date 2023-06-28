@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Role;
+namespace App\Http\Livewire\Admin\Permission;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Admin\Role;
+use App\Models\Admin\Permission;
 use Illuminate\Support\Facades\Blade;
 
-class RoleTable extends DataTableComponent
+class PermissionTable extends DataTableComponent
 {
-    protected $model = Role::class;
+    protected $model = Permission::class;
 
     public function configure(): void
     {
@@ -25,11 +25,9 @@ class RoleTable extends DataTableComponent
             Column::make("Name", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Description", "description")
-                ->searchable(),
             Column::make("Action")
                 ->label(
-                    fn ($row) => Blade::render('<x-action :model="$model" route="roles" :show="true" />', ['model' => $row])
+                    fn ($row) => Blade::render('<x-action :model="$model" route="permissions" :show="false" />', ['model' => $row])
                 )
                 ->html(),
         ];

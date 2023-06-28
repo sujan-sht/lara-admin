@@ -33,6 +33,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->bind(\App\Contracts\RoleRepositoryInterface::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Contracts\UserRepositoryInterface::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Contracts\PermissionRepositoryInterface::class, \App\Repositories\PermissionRepository::class);
 
 
     }
