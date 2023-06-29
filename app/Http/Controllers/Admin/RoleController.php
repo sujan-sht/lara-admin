@@ -15,6 +15,7 @@ class RoleController extends Controller
     public function __construct(RoleRepositoryInterface $roleRepositoryInterface)
     {
         $this->roleRepositoryInterface = $roleRepositoryInterface;
+        $this->authorize(Role::class,'role');
     }
     /**
      * Display a listing of the resource.

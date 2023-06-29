@@ -3,8 +3,13 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 
+<link rel="stylesheet" href="{{asset('lara-admin/assets/vendor/jquery-toast-plugin/jquery.toast.min.css')}}"/>
 <!-- Select2 css -->
 <link href="{{asset('lara-admin/assets/vendor/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+
+<!-- Datatables css -->
+<link href="{{asset('lara-admin/assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css" />
+
 
 <!-- Daterangepicker css -->
 <link rel="stylesheet" href="{{asset('lara-admin/assets/vendor/daterangepicker/daterangepicker.css')}}">

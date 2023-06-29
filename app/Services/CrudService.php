@@ -13,6 +13,8 @@ class CrudService extends CommandHelper
         Self::createFolderIfNotExists(app_path('Http/Controllers/Admin'));
         Self::createFolderIfNotExists(resource_path('views/admin/'.strtolower($name)));
         Self::createFolderIfNotExists(app_path("Http/Livewire/Admin/".$name));
+        Self::createFolderIfNotExists(app_path("Policies"));
+
 
         Self::makeModel($name, $console);
         Self::makeMigration($name, $console);
@@ -22,6 +24,7 @@ class CrudService extends CommandHelper
         Self::makeBladeLayouts($name, $console);
         Self::addFileContent($name, $console);
         Self::makeRappasoftTable($name,$console);
+        Self::makePolicy($name,$console);
 
         RepositoryPatternService::repoPattern($name,true);
         $console->info('Repo pattern created for model: '.$name);
@@ -80,6 +83,13 @@ class CrudService extends CommandHelper
         $file = app_path("Http/Livewire/Admin/".$name.'/'.$name.'Table.php');
         file_put_contents($file, Self::generateContent('RappasoftTable',$name));
         $console->info('Livewire Table Created Successfully');
+    }
+
+    protected static function makePolicy($name, $console)
+    {
+        $file = app_path("Policies/".$name."Policy.php");
+        file_put_contents($file, Self::generateContent('Policy',$name));
+        $console->info('Policy Created Successfully');
     }
 
     protected static function addFileContent($name, $console)

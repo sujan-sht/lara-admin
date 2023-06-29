@@ -12,7 +12,7 @@ class PermissionRepository implements PermissionRepositoryInterface
     // Permission Index
     public function indexPermission()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::where('model','=','all')->get();
         return compact('permissions');
     }
 
@@ -26,7 +26,17 @@ class PermissionRepository implements PermissionRepositoryInterface
     // Permission Store
     public function storePermission(PermissionRequest $request)
     {
-        Permission::create($request->validated());
+        $request->validated();
+        Permission::create([
+            'browse' => 1,
+            'read' => 1,
+            'edit' => 1,
+            'add' => 1,
+            'delete' => 1,
+            'role_id' => $request->role_id,
+            'name' => $request->name,
+            'model' => 'all'
+        ]);
     }
 
     // Permission Show

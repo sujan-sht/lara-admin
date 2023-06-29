@@ -31,7 +31,8 @@
             "App\\Mixins\\": "app/Mixins/"
         },
         "files": [
-            "app/Helpers/adminRouteHelper.php"
+            "app/Helpers/adminRouteHelper.php",
+            "app/Helpers/adminHelper.php"
         ]
     },
     "autoload-dev": {

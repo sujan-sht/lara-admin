@@ -15,6 +15,7 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $userRepositoryInterface)
     {
         $this->userRepositoryInterface = $userRepositoryInterface;
+        $this->authorizeResource(User::class, 'user');
     }
     /**
      * Display a listing of the resource.
