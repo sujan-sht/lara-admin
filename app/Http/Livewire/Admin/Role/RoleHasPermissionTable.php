@@ -3,31 +3,50 @@
 namespace App\Http\Livewire\Admin\Role;
 
 use App\Models\Admin\Permission;
+use App\Models\Admin\Role;
 use Livewire\Component;
 
 class RoleHasPermissionTable extends Component
 {
     public $role;
     public $modules;
+    public $permissions;
+    public $role_models;
+    public $remaining_modules;
+    public $model_name;
 
-
-    public function render()
+    public function mount(Role $role)
     {
-        $this->makeModulePermission();
-        return view('livewire.admin.role.role-has-permission-table');
+        $this->setRolePermission($role);
     }
+
 
     public function makeModulePermission()
     {
-        $this->modules = getAllModelNames(app_path('Models'));
+        Permission::create([
+            'browse' => 1,
+            'read' => 1,
+            'edit' => 1,
+            'add' => 1,
+            'delete' => 1,
+            'role_id' => $this->role->id,
+            'model' => $this->model_name,
+        ]);
+        $this->permissions = Permission::where('role_id', $this->role->id)->get();
+        $this->emit('make_module_success',$this->model_name . ' Module Permission added Successfully');
 
-        foreach($this->modules as $module)
-        {
-            Permission::Create([
-                'role_id' => $this->role->id,
-                'model' => $module
-            ]);
-        }
+    }
+    public function render()
+    {
+        return view('livewire.admin.role.role-has-permission-table');
     }
 
+    private function setRolePermission(Role $role)
+    {
+        $this->role = $role;
+        $this->permissions = $role->permissions;
+        $this->modules = getAllModelNames(app_path('Models'));
+        $this->role_models = $role->permissions->pluck('model')->toArray();
+        $this->remaining_modules = array_diff($this->modules, $this->role_models ?? []);
+    }
 }

@@ -1,6 +1,8 @@
  <!-- Vendor js -->
  <script src="{{asset('lara-admin/assets/js/vendor.min.js')}}"></script>
 
+ <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
+
  <script src="{{asset('lara-admin/assets/vendor/jquery-toast-plugin/jquery.toast.min.js')}}"></script>
  <!--  Select2 Plugin Js -->
  <script src="{{asset('lara-admin/assets/vendor/select2/js/select2.min.js')}}"></script>
@@ -72,3 +74,4 @@
 </script>
 
  @livewireScripts
+ @stack('livewire_third_party')

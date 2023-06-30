@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Admin\modelName;
+use App\Models\Admin\Permission;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class modelNamePolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
@@ -16,15 +16,15 @@ class modelNamePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->userCanDo('modelName', 'browse');
+        return $user->userCanDo('Permission', 'browse');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, modelName $lowercaseModelName): bool
+    public function view(User $user, Permission $permission): bool
     {
-        return $user->userCanDo('modelName', 'read');
+        return $user->userCanDo('Permission', 'read');
     }
 
     /**
@@ -32,29 +32,29 @@ class modelNamePolicy
      */
     public function create(User $user): bool
     {
-        return $user->userCanDo('modelName', 'add');
+        return $user->userCanDo('Permission', 'add');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, modelName $lowercaseModelName): bool
+    public function update(User $user, Permission $permission): bool
     {
-        return $user->userCanDo('modelName', 'edit');
+        return $user->userCanDo('Permission', 'edit');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, modelName $lowercaseModelName): bool
+    public function delete(User $user, Permission $permission): bool
     {
-        return $user->userCanDo('modelName', 'delete');
+        return $user->userCanDo('Permission', 'delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, modelName $lowercaseModelName): bool
+    public function restore(User $user, Permission $permission): bool
     {
         return true;
     }
@@ -62,7 +62,7 @@ class modelNamePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, modelName $lowercaseModelName): bool
+    public function forceDelete(User $user, Permission $permission): bool
     {
         return true;
     }

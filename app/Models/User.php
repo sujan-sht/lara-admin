@@ -63,7 +63,6 @@ class User extends Authenticatable
                 }
             }
         }
-
         return in_array(1, $can);
     }
 }
