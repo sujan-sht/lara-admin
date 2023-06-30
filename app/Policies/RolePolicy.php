@@ -10,6 +10,14 @@ use Illuminate\Auth\Access\Response;
 class RolePolicy
 {
     use HandlesAuthorization;
+
+    public function before($user, $ability)
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      */

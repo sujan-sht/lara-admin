@@ -6,37 +6,36 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Admin\Permission;
+use App\Models\Admin\Role;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class PermissionTable extends DataTableComponent
 {
-    protected $model = Permission::class;
+    // protected $model = Permission::class;
+    public function builder(): Builder
+    {
+        return Permission::whereHas('role', function ($query) {
+            $query->where('name', '!=', 'Super Admin');
+        });
+    }
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        // $this->setColumnSelectDisabled();
     }
 
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
-                ->sortable()
-                ->searchable(),
-            Column::make("Browse", "browse")
-                ->format([$this, 'generateIcon']),
-            Column::make("Read", "read")
-                ->format([$this, 'generateIcon']),
-            Column::make("Edit", "edit")
-                ->format([$this, 'generateIcon']),
-            Column::make("Add", "add")
-                ->format([$this, 'generateIcon']),
-            Column::make("Delete", "delete")
-                ->format([$this, 'generateIcon']),
+            BooleanColumn::make('Browse'),
+            BooleanColumn::make('Read'),
+            BooleanColumn::make('Edit'),
+            BooleanColumn::make('Add'),
+            BooleanColumn::make('Delete'),
             Column::make("Role", "role.name")
                 ->sortable()
                 ->searchable()
@@ -60,14 +59,14 @@ class PermissionTable extends DataTableComponent
 
     public function filters() : array
     {
+        $roles = Role::pluck('name', 'id')->toArray();
         return [
-            SelectFilter::make('Role'),
+            SelectFilter::make('Role')
+            ->options($roles)
+            ->filter(function (Builder $builder, string $value) {
+                $builder->where('role_id', $value);
+            }),
         ];
-    }
-
-    public function generateIcon($value) {
-        $icon = $value ? 'check text-success' : 'times text-danger';
-        return new HtmlString('<i class=" fa fa-' . $icon . '"></i>');
     }
 
     public function nullCheck($value){

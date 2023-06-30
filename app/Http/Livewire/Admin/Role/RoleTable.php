@@ -5,11 +5,18 @@ namespace App\Http\Livewire\Admin\Role;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Admin\Role;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 
 class RoleTable extends DataTableComponent
 {
-    protected $model = Role::class;
+    // protected $model = Role::class;
+
+    public function builder(): Builder
+    {
+        return Role::where('name', '!=', 'super admin');
+    }
+
 
     public function configure(): void
     {

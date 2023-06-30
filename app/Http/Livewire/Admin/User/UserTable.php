@@ -2,19 +2,25 @@
 
 namespace App\Http\Livewire\Admin\User;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class UserTable extends DataTableComponent
 {
-    protected $model = User::class;
+    // protected $model = User::class;
+    public function builder(): Builder
+    {
+        return User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'super admin');
+        });
+    }
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setColumnSelectDisabled();
     }
 
     public function columns(): array
@@ -31,5 +37,6 @@ class UserTable extends DataTableComponent
                 )
                 ->html(),
         ];
+
     }
 }

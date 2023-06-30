@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Admin\Role;
+use App\Traits\HasRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRole;
 
     /**
      * The attributes that are mass assignable.
@@ -44,25 +44,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'role_users')->withTimestamps();
-    }
-
-    // Check BREAD Access
-    public function userCanDo($model, $bread)
-    {
-        $can = [];
-        foreach ($this->roles as $role) {
-            $permissions = $role->permissions->whereIn('role_id', $role->id)->whereIn('model', trim($model))->pluck([$bread]);
-            if ($permissions) {
-                foreach ($permissions as $permission) {
-                    $can[] = $permission;
-                }
-            }
-        }
-        return in_array(1, $can);
-    }
 }

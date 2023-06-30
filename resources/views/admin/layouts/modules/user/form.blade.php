@@ -33,7 +33,9 @@
         <select name="role[]" class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Select Role ...">
             @if ($roles->count()>0)
                 @foreach ($roles as $role)
-                    <option value="{{$role->id}}" {{isset($user) ? ((in_array($role->id,$user->roles->pluck('id')->toArray())) ? 'selected' : '') : ''}}>{{$role->name}}</option>
+                    @if ($role->name != 'Super Admin')
+                        <option value="{{$role->id}}" {{isset($user) ? ((in_array($role->id,$user->roles->pluck('id')->toArray())) ? 'selected' : '') : ''}}>{{$role->name}}</option>
+                    @endif
                 @endforeach
             @endif
         </select>
