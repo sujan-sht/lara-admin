@@ -33,7 +33,8 @@ class RoleTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make("Description", "description")
-                ->searchable(),
+                ->searchable()
+                ->collapseOnTablet(),
             Column::make("Action")
                 ->label(
                     fn ($row) => Blade::render('<x-action :model="$model" route="roles" :show="true" />', ['model' => $row])

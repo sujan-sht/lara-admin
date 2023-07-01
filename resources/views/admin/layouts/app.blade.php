@@ -1,17 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from w3crm.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 May 2023 09:14:23 GMT -->
 <head>
-    <meta charset="utf-8" />
-    <title>Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
+    @include('admin.layouts.components.assets.meta')
 
-	<!-- PAGE TITLE HERE -->
-	<title>W3CRM Customer Relationship Management</title>
-	<!-- FAVICONS ICON -->
 
     @include('admin.layouts.components.assets.links')
 

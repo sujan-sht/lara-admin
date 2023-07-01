@@ -31,9 +31,12 @@ class UserTable extends DataTableComponent
             Column::make("Name", "name")
                 ->sortable()
                 ->searchable(),
+            Column::make("Email", "email")
+                ->sortable()
+                ->searchable(),
             Column::make("Action")
                 ->label(
-                    fn ($row) => Blade::render('<x-action :model="$model" route="users" :show="true" />', ['model' => $row])
+                    fn ($row) => Blade::render('<x-action :model="$model" route="users" :show="false" />', ['model' => $row])
                 )
                 ->html(),
         ];
