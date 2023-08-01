@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Admin\Menu;
 use App\Services\Helper\CommandHelper;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
@@ -25,6 +27,7 @@ class CrudService extends CommandHelper
         Self::addFileContent($name, $console);
         Self::makeRappasoftTable($name,$console);
         Self::makePolicy($name,$console);
+        Self::makeMenu($name,$console);
 
         RepositoryPatternService::repoPattern($name,true);
         $console->info('Repo pattern created for model: '.$name);
@@ -90,6 +93,17 @@ class CrudService extends CommandHelper
         $file = app_path("Policies/".$name."Policy.php");
         file_put_contents($file, Self::generateContent('Policy',$name));
         $console->info('Policy Created Successfully');
+    }
+
+    protected static function makeMenu($name, $console)
+    {
+        Menu::create([
+            'name' => $name,
+            'route' => 'admin.'.strtolower($name),
+            'icon' => null,
+            'position' => 0,
+        ]);
+        $console->info('Menu Created Successfully');
     }
 
     protected static function addFileContent($name, $console)

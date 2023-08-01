@@ -15,7 +15,7 @@ class modelNameController extends Controller
     public function __construct(modelNameRepositoryInterface $lowercaseModelNameRepositoryInterface)
     {
         $this->lowercaseModelNameRepositoryInterface = $lowercaseModelNameRepositoryInterface;
-        $this->authorize(modelName::class,'lowercaseModelName');
+        $this->authorizeResource(modelName::class,'lowercaseModelName');
     }
     /**
      * Display a listing of the resource.

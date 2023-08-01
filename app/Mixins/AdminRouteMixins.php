@@ -2,6 +2,7 @@
 
 namespace App\Mixins;
 
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -19,6 +20,8 @@ class AdminRouteMixins
                 Route::resource('roles',RoleController::class);
                 Route::resource('users',UserController::class);
                 Route::resource('permissions',PermissionController::class);
+                Route::resource('menus',MenuController::class);
+
             });
         };
     }

@@ -31,6 +31,8 @@ class PermissionTable extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make("ID", "id")
+                ->sortable(),
             BooleanColumn::make('Browse'),
             BooleanColumn::make('Read'),
             BooleanColumn::make('Edit'),
