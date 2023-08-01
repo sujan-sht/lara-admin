@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('route');
             $table->string('icon')->nullable();
             $table->integer('position')->default(0);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

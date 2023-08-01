@@ -102,6 +102,7 @@ class CrudService extends CommandHelper
             'route' => 'admin.'.strtolower($name),
             'icon' => null,
             'position' => 0,
+            'status' => 1,
         ]);
         $console->info('Menu Created Successfully');
     }
