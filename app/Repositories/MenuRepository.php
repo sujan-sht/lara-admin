@@ -25,8 +25,7 @@ class MenuRepository implements MenuRepositoryInterface
     // Menu Store
     public function storeMenu(MenuRequest $request)
     {
-        $menu = Menu::create($request->validated());
-        if($menu){
+        if($request->validated()){
             Artisan::call('make:crud ' .$request->name);
         }
     }
@@ -46,7 +45,10 @@ class MenuRepository implements MenuRepositoryInterface
     // Menu Update
     public function updateMenu(MenuRequest $request, Menu $menu)
     {
-        $menu->update($request->validated());
+        if($request->validated()){
+            Artisan::call('edit:crud ' . $request->name);
+        }
+        // $menu->update($request->validated());
     }
 
     // Menu Destroy
