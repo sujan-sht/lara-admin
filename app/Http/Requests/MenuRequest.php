@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class MenuRequest extends FormRequest
 {
@@ -14,6 +15,12 @@ class MenuRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'route' => strtolower(Str::plural($this->name))
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *

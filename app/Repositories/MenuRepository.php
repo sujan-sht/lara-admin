@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Admin\Menu;
 use App\Contracts\MenuRepositoryInterface;
 use App\Http\Requests\MenuRequest;
+use Illuminate\Support\Facades\Artisan;
 
 class MenuRepository implements MenuRepositoryInterface
 {
@@ -24,7 +25,10 @@ class MenuRepository implements MenuRepositoryInterface
     // Menu Store
     public function storeMenu(MenuRequest $request)
     {
-        Menu::create($request->validated());
+        $menu = Menu::create($request->validated());
+        if($menu){
+            Artisan::call('make:crud ' .$request->name);
+        }
     }
 
     // Menu Show

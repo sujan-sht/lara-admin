@@ -99,10 +99,10 @@ class CrudService extends CommandHelper
     {
         Menu::create([
             'name' => $name,
-            'route' => 'admin.'.strtolower($name),
+            'route' => strtolower(Str::plural($name)),
             'icon' => null,
             'position' => 0,
-            'status' => 1,
+            'active' => 1,
         ]);
         $console->info('Menu Created Successfully');
     }

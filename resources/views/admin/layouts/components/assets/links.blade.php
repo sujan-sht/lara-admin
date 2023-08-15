@@ -26,4 +26,5 @@
 <!-- Icons css -->
 <link href="{{asset('lara-admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
 
+
 @livewireStyles
