@@ -40,7 +40,13 @@
         <!--- Sidemenu -->
         <ul class="side-nav">
 
-            <li class="side-nav-title side-nav-item">Default</li>
+            <li class="side-nav-title side-nav-item">System Default</li>
+            <li class="side-nav-item">
+                <a href="{{route('dashboard')}}" class="side-nav-link">
+                    <i class="uil-calender"></i>
+                    <span> Dashboard </span>
+                </a>
+            </li>
             <li class="side-nav-item">
                 <a href="{{route('users.index')}}" class="side-nav-link">
                     <i class="uil-calender"></i>
@@ -66,16 +72,19 @@
                 </a>
             </li>
 
+            {{-- @isset($menus) --}}
             @if (!is_null($menus))
-                @foreach ($menus as $menu)
-                <li class="side-nav-item">
-                    <a href="{{route($menu->route.'.index')}}" class="side-nav-link">
-                        <i class="{{$menu->icon}}"></i>
-                        <span> {{$menu->name}} </span>
-                    </a>
-                </li>
-                @endforeach
-            @endif
+            @foreach ($menus as $menu)
+            <li class="side-nav-item">
+                <a href="{{route($menu->route.'.index')}}" class="side-nav-link">
+                    <i class="{{$menu->icon}}"></i>
+                    <span> {{$menu->name}} </span>
+                </a>
+            </li>
+            @endforeach
+        @endif
+            {{-- @endisset --}}
+
         </ul>
         <!--- End Sidemenu -->
 

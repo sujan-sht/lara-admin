@@ -27,5 +27,6 @@ class SystemServiceProvider extends ServiceProvider
                 'menus' => $menus,
             ]);
         });
+
     }
 }
