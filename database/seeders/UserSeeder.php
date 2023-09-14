@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin123'),
         ]);
 
-        $role = Role::where('name', 'admin')->first();
+        $role = Role::where('name', 'Admin')->first();
 
         $admin->roles()->attach($role);
     }
