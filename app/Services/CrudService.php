@@ -109,7 +109,40 @@ class CrudService extends CommandHelper
 
     protected static function addFileContent($name, $console)
     {
-        // $lowercased_name = strtolower($name);
-        // $route = "Route::resource('admin/{$lowercased_name}',\App\Http\Controllers\Admin\\{$name}Controller::class);";
+        // Adding Route
+        $lowercased_name = strtolower($name);
+        $route = "Route::resource('admin/{$lowercased_name}',\App\Http\Controllers\Admin\\{$name}Controller::class);";
+        file_put_contents('routes/web.php', "\n", FILE_APPEND | LOCK_EX);
+        file_put_contents('routes/web.php', $route, FILE_APPEND | LOCK_EX);
+
+        $console->info('Route  added to web.php ... ✅');
+
+        // Adding Route Interface Binding
+        // $repository_interface_binding = '$this->app->bind(\App\Contracts\\'.$name.'RepositoryInterface::class, \App\Repositories\\'.$name.'Repository::class);';
+        // $provider_path = app_path('Providers/AdminServiceProvider.php');
+        // putContentToClassFunction($provider_path, 'protected function repos', $repository_interface_binding);
+
+        // // Adding Module To Menu
+        // $menu_content = "],[\n".
+        //     "'type' => 'menu',\n".
+        //     "'name' => '$name',\n".
+        //     "'icon' => 'fa fa-wrench',\n".
+        //     "'is_active' => request()->routeIs('$lowercased_name*') ? 'active' : '',\n".
+        //     "'conditions' => [\n".
+        //     "[\n".
+        //     "'type' => 'or',\n".
+        //     "'condition' => auth()->user()->can('view-any', \App\Models\Admin\\".$name."::class),\n".
+        //     "],\n".
+        //     "[\n".
+        //     "'type' => 'or',\n".
+        //     "'condition' => auth()->user()->can('create', \App\Models\Admin\\".$name."::class),\n".
+        //     "],\n".
+        //     "],\n";
+        // $menu_content = $menu_content.'"children" => $this->indexCreateChildren("'.$lowercased_name.'", \App\Models\Admin\\'.$name.'::class),';
+        // $menu_content = "\n".$menu_content."\n";
+        // $menu_path = app_path('Services/MyMenu.php');
+        // putContentToClassFunction($menu_path, 'return [', $menu_content, ']');
+
+        // $console->info('Menu added to Menu.php ... ✅');
     }
 }
