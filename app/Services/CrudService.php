@@ -24,7 +24,8 @@ class CrudService extends CommandHelper
         Self::makeViews($name, $console);
         Self::makeSeeder($name, $console);
         Self::makeBladeLayouts($name, $console);
-        Self::addFileContent($name, $console);
+        Self::addRouteContent($name, $console);
+        // Self::addFileContent($name, $console);
         Self::makeRappasoftTable($name,$console);
         Self::makePolicy($name,$console);
         Self::makeMenu($name,$console);
@@ -107,42 +108,37 @@ class CrudService extends CommandHelper
         $console->info('Menu Created Successfully');
     }
 
-    protected static function addFileContent($name, $console)
+    protected static function addRouteContent($name, $console)
     {
         // Adding Route
-        $lowercased_name = strtolower($name);
-        $route = "Route::resource('admin/{$lowercased_name}',\App\Http\Controllers\Admin\\{$name}Controller::class);";
-        file_put_contents('routes/web.php', "\n", FILE_APPEND | LOCK_EX);
-        file_put_contents('routes/web.php', $route, FILE_APPEND | LOCK_EX);
+        $lowercased_name = strtolower(Str::plural($name));
+        $route = "Route::resource('{$lowercased_name}',\App\Http\Controllers\Admin\\{$name}Controller::class);\n";
 
-        $console->info('Route  added to web.php ... ✅');
+        $filePath = app_path('Mixins/AdminRouteMixins.php'); // Specify the // Read the file content
+        $content = file_get_contents($filePath);
 
+        // Search for the symbol
+        $position = strpos($content, '});');
+
+        if ($position !== false) {
+            // Add content before the symbol
+            $content = substr_replace($content, $route, $position, 0);
+            // Write the updated content back to the file
+            file_put_contents($filePath, $content);
+
+            $console->info('Route added Successfully');
+
+        } else {
+            $console->info('Route couldnot be added');
+        }
+    }
+
+    protected static function addFileContent($name, $console)
+    {
         // Adding Route Interface Binding
-        // $repository_interface_binding = '$this->app->bind(\App\Contracts\\'.$name.'RepositoryInterface::class, \App\Repositories\\'.$name.'Repository::class);';
-        // $provider_path = app_path('Providers/AdminServiceProvider.php');
-        // putContentToClassFunction($provider_path, 'protected function repos', $repository_interface_binding);
+        $repository_interface_binding = '$this->app->bind(\App\Contracts\\'.$name.'RepositoryInterface::class, \App\Repositories\\'.$name.'Repository::class);';
+        $provider_path = app_path('Providers/AdminServiceProvider.php');
+        Self::putContentToClassFunction($provider_path, 'protected function repos', $repository_interface_binding);
 
-        // // Adding Module To Menu
-        // $menu_content = "],[\n".
-        //     "'type' => 'menu',\n".
-        //     "'name' => '$name',\n".
-        //     "'icon' => 'fa fa-wrench',\n".
-        //     "'is_active' => request()->routeIs('$lowercased_name*') ? 'active' : '',\n".
-        //     "'conditions' => [\n".
-        //     "[\n".
-        //     "'type' => 'or',\n".
-        //     "'condition' => auth()->user()->can('view-any', \App\Models\Admin\\".$name."::class),\n".
-        //     "],\n".
-        //     "[\n".
-        //     "'type' => 'or',\n".
-        //     "'condition' => auth()->user()->can('create', \App\Models\Admin\\".$name."::class),\n".
-        //     "],\n".
-        //     "],\n";
-        // $menu_content = $menu_content.'"children" => $this->indexCreateChildren("'.$lowercased_name.'", \App\Models\Admin\\'.$name.'::class),';
-        // $menu_content = "\n".$menu_content."\n";
-        // $menu_path = app_path('Services/MyMenu.php');
-        // putContentToClassFunction($menu_path, 'return [', $menu_content, ']');
-
-        // $console->info('Menu added to Menu.php ... ✅');
     }
 }
