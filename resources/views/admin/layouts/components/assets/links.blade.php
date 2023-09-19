@@ -11,6 +11,7 @@
 <link href="{{asset('lara-admin/assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css" />
 
 
+<link rel="stylesheet" href="{{asset('lara-admin/assets/css/dropzone.css')}}" type="text/css" />
 <!-- Daterangepicker css -->
 <link rel="stylesheet" href="{{asset('lara-admin/assets/vendor/daterangepicker/daterangepicker.css')}}">
 

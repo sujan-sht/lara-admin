@@ -1,6 +1,12 @@
  <!-- Vendor js -->
  <script src="{{asset('lara-admin/assets/js/vendor.min.js')}}"></script>
 
+ <script src="{{asset('lara-admin/assets/vendor/highlightjs/highlight.pack.min.js')}}"></script>
+ <script src="{{asset('lara-admin/assets/js/hyper-syntax.js')}}"></script>
+
+<script src="{{asset('lara-admin/assets/js/spartan/spartan-multi-image-picker-min.js')}}"></script>
+
+
  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
 
  <script src="{{asset('lara-admin/assets/vendor/jquery-toast-plugin/jquery.toast.min.js')}}"></script>
@@ -29,8 +35,13 @@
  <!-- Dashboard App js -->
  <script src="{{asset('lara-admin/assets/js/pages/demo.dashboard.js')}}"></script>
 
+
+
  <!-- App js -->
- <script src="{{asset('lara-admin/assets/js/app.js')}}"></script>
+ <script src="{{asset('lara-admin/assets/js/app.min.js')}}"></script>
+
+
+
 
  <script>
     @if(Session::has('message'))
@@ -75,6 +86,36 @@
     @endif
 
 </script>
-
+<script type="text/javascript">
+    $(function(){
+        $("#multi_image_picker").spartanMultiImagePicker({
+            fieldName     : 'image',
+            maxCount      : 1,
+            rowHeight     : '200px',
+            groupClassName: 'col-4',
+            maxFileSize   : 2500,
+            dropFileLabel : "Drop Here",
+            onAddRow      : function(index){
+                console.log(index);
+                console.log('add new row');
+            },
+            onRenderedPreview : function(index){
+                console.log(index);
+                console.log('preview rendered');
+            },
+            onRemoveRow : function(index){
+                console.log(index);
+            },
+            onExtensionErr : function(index, file){
+                console.log(index, file,  'extension err');
+                alert('Please only input png or jpg type file')
+            },
+            onSizeErr : function(index, file){
+                console.log(index, file,  'file size too big');
+                alert('File size too big');
+            }
+        });
+    });
+</script>
  @livewireScripts
  @stack('livewire_third_party')

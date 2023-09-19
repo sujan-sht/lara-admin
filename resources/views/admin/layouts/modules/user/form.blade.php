@@ -43,6 +43,15 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
     </div>
+    <div class="col-md-6 mb-3">
+
+        <label for="image">Image</label>
+
+        {{-- <input type="file" name="image" id="image" class="form-control"> --}}
+        <div id="multi_image_picker" class="row"></div>
+
+    </div>
+
     <div class="row">
         <x-add-edit-button :model="$user ?? ''" name="user"></x-add-edit-button>
     </div>

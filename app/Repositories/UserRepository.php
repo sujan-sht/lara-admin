@@ -35,6 +35,8 @@ class UserRepository implements UserRepositoryInterface
         ]);
 
         $user->roles()->attach($request->role);
+        $this->uploadImage($user);
+
 
     }
 
@@ -76,6 +78,17 @@ class UserRepository implements UserRepositoryInterface
     {
         if($user->delete()){
             $user->roles()->detach();
+        }
+    }
+
+
+    // Upload Image
+    private function uploadImage(User $user)
+    {
+        if (request()->has('image')) {
+            $user
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('image');
         }
     }
 }
