@@ -25,7 +25,7 @@ class CrudService extends CommandHelper
         Self::makeSeeder($name, $console);
         Self::makeBladeLayouts($name, $console);
         Self::addRouteContent($name, $console);
-        // Self::addFileContent($name, $console);
+        Self::addFileContent($name, $console);
         Self::makeRappasoftTable($name,$console);
         Self::makePolicy($name,$console);
         Self::makeMenu($name,$console);
